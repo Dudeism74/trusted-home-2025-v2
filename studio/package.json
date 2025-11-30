@@ -1,0 +1,15 @@
+{
+  "name": "trusted-home-essentials-studio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "sanity start --no-open",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "@sanity/cli": "^3.0.0",
+    "@sanity/studio": "^3.0.0",
+    "@sanity/desk-tool": "^3.0.0"
+  }
+}

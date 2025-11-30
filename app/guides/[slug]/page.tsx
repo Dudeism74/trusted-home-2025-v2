@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { getArticleBySlug } from "../../../app/lib/sanity.articles";
+import { getArticleBySlug } from "../../lib/sanity.articles";
 
 type Props = {
   params: { slug: string };
 };
 
 export default async function GuidePage({ params }: Props) {
-  const { slug } = params;
+  const resolvedParams = (await params) as { slug: string };
+  const { slug } = resolvedParams;
   const article = await getArticleBySlug(slug);
 
   if (!article) {

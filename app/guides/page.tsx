@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getLatestArticles } from "../../app/lib/sanity.articles";
+import { getLatestArticles } from "../lib/sanity.articles";
 
 export default async function GuidesPage() {
   const articles = await getLatestArticles(50);
