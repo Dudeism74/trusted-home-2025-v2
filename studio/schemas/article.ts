@@ -1,4 +1,4 @@
-export default {
+const articleSchema = {
   name: 'article',
   type: 'document',
   title: 'Article',
@@ -9,3 +9,5 @@ export default {
     { name: 'publishedAt', type: 'datetime', title: 'Published at' },
   ],
 }
+
+export default articleSchema

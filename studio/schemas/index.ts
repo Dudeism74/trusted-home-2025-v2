@@ -1,3 +1,5 @@
 import article from './article'
 
-export default [article]
+const schemas = [article]
+
+export default schemas
