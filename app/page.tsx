@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { getLatestArticles, Article } from "./lib/sanity.articles";
 
-export default function Home() {
+export default async function Home() {
+  const articles: Article[] = await getLatestArticles(5);
+
   return (
     <main className="px-4 py-10">
       <div className="mx-auto flex max-w-6xl flex-col gap-12">
@@ -13,7 +16,7 @@ export default function Home() {
           <h1 className="mt-4 text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl">
             Make your home easier to live in, not harder to clean.
           </h1>
-          <p className="mt-4 max-w-2xl text-sm sm:text-base text-slate-200">
+          <p className="mt-4 max-w-2xl text-sm text-slate-200 sm:text-base">
             Every recommendation on this site is tested in a real home,
             not pulled from a product catalog. Fewer pointless gadgets,
             more tools that actually make life smoother day after day.
@@ -107,6 +110,67 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Latest guides pulled from Sanity */}
+        <section aria-labelledby="latest-guides" className="border-t border-slate-100 bg-slate-50/60">
+          <div className="mx-auto max-w-6xl px-0 py-10 sm:px-2">
+            <div className="flex items-baseline justify-between gap-4">
+              <div>
+                <h2
+                  id="latest-guides"
+                  className="text-xl font-semibold text-slate-900"
+                >
+                  Latest guides and reviews.
+                </h2>
+                <p className="mt-1 text-xs text-slate-500">
+                  Dynamic guides from Sanity will go here once the connection is wired up.
+                </p>
+              </div>
+              <Link
+                href="/guides"
+                className="text-xs font-semibold text-sky-700 hover:text-sky-600"
+              >
+                Browse all guides →
+              </Link>
+            </div>
+
+            {articles.length === 0 && (
+              <p className="mt-6 text-sm text-slate-500">
+                No published articles found. Publish an
+                <span className="mx-1 rounded bg-slate-200 px-1.5 py-0.5 text-xs font-mono">
+                  article
+                </span>
+                document in Sanity and refresh this page.
+              </p>
+            )}
+
+            {articles.length > 0 && (
+              <div className="mt-6 grid gap-6 md:grid-cols-3">
+                {articles.map((article) => (
+                  <Link
+                    key={article._id}
+                    href={article.slug ? `/guides/${article.slug}` : "/guides"}
+                    className="block rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md"
+                  >
+                    <h3 className="text-sm font-semibold text-slate-900">
+                      {article.title}
+                    </h3>
+                    {article.intro && (
+                      <p className="mt-3 flex-1 text-xs text-slate-600">
+                        {article.intro}
+                      </p>
+                    )}
+                    {article.publishedAt && (
+                      <p className="mt-2 text-[11px] text-slate-500">
+                        {new Date(article.publishedAt).toLocaleDateString()}
+                      </p>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* Featured products strip */}
         <section aria-labelledby="featured-products">
           <div className="flex items-baseline justify-between gap-4">
@@ -194,7 +258,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/guides"
-                className="text-xs font-semibold text-sky-700 hover:text-sky-600 text-right md:text-left"
+                className="text-right text-xs font-semibold text-sky-700 hover:text-sky-600 md:text-left"
               >
                 Browse all guides →
               </Link>
