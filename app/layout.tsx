@@ -27,7 +27,26 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="min-h-screen flex flex-col bg-transparent">
+          <header className="border-b border-slate-700">
+            <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
+              <div className="text-lg font-semibold">Trusted Home Essentials</div>
+              <nav className="flex gap-4 text-sm">
+                <a href="#" className="hover:underline">Home</a>
+                <a href="#" className="hover:underline">Categories</a>
+                <a href="#" className="hover:underline">Guides</a>
+              </nav>
+            </div>
+          </header>
+
+          <main className="mx-auto max-w-6xl px-6 py-10 flex-1 w-full">{children}</main>
+
+          <footer className="border-t border-slate-700">
+            <div className="mx-auto max-w-6xl px-6 py-4 text-sm text-slate-400">
+              © 2025 Trusted Home Essentials. All rights reserved.
+            </div>
+          </footer>
+        </div>
       </body>
     </html>
   );
